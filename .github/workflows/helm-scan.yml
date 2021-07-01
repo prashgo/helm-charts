@@ -14,7 +14,7 @@ jobs:
           version: v3.4.0
       - name: Generate template
         run: |
-          mkdr /tmp/charts
+          mkdir /tmp/charts
           helm template test chart-source/aks-helloworld/ > /tmp/charts/aks-helloworld.yaml
       - name: Install Cloud Defense
         run: |
