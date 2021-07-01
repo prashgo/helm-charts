@@ -1,0 +1,24 @@
+name: Cloud Defense HelmCharts
+​
+on:
+  pull_request:
+​
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.4.0
+      - name: Generate template
+        run: |
+          helm template test chart-source/aks-helloworld/ > /tmp/charts/aks-helloworld.yaml
+      - name: Install Cloud Defense
+        run: |
+          curl https://raw.githubusercontent.com/CloudDefenseAI/cd/master/latest/cd-latest-linux-x64.tar.gz > /tmp/cd-latest-linux-x64.tar.gz
+          tar -C /tmp -xzf /tmp/cd-latest-linux-x64.tar.gz
+          chmod +x /tmp/cdefense
+      - name: Run Cloud Defense Scan
+        run: /tmp/cdefense kubernetes --api-key=d6d2431d-5c13-b100-7420-4890ce39c191 --project-name=$GITHUB_REPOSITORY --path=/tmp/charts
