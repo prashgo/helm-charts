@@ -1,6 +1,7 @@
 name: Cloud Defense HelmCharts
 
-on: pull_request
+on: 
+  push:
 
 jobs:
   build:
