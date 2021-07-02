@@ -15,7 +15,7 @@ jobs:
       - name: Generate template
         run: |
           mkdir /tmp/charts
-          helm template test chart-source/aks-helloworld/ > /tmp/charts/$GITHUB_SHA.yaml
+          helm template chart-source/aks-helloworld/ > /tmp/charts/$GITHUB_SHA.yaml
       - name: Install Cloud Defense
         run: |
           curl https://raw.githubusercontent.com/CloudDefenseAI/cd/master/latest/cd-latest-linux-x64.tar.gz > /tmp/cd-latest-linux-x64.tar.gz
